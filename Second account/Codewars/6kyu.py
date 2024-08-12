@@ -103,4 +103,128 @@ def order(sentence):
 def order(sentence):
     return " ".join([i[0] for i in sorted([[i, int([x for x in i if x.isdigit()][0])] for i in sentence.split(" ")], key=lambda x: x[1])]) if sentence else ""
 
-# 
+# Tribonacci Sequence
+def tribonacci(signature, n):
+    match n:
+        case 0: return []
+        case 1: return [signature[0]]
+        case 2: return signature[:2]
+    
+    res = signature
+    while len(res) < n:
+        res.append(res[-1]+res[-2]+res[-3])
+    return res
+
+# Split Strings
+def solution(s):
+    if not s: return []
+
+    res, start = [], 0
+    for i in range(2, len(s)+1, 2):
+        res.append(s[start:i])
+        start += 2
+        
+    if len(s)%2!=0: res.append(f"{s[-1]}_")
+        
+    return res
+
+# Find the unique number
+def find_uniq(arr):
+    return sorted(arr)[-1] if sorted(arr)[0] == sorted(arr)[1] else sorted(arr)[0]
+
+# Playing with digits
+def dig_pow(n, p):
+    start, res = p, 0
+    for i in str(n):
+        res += int(i)**start
+        start += 1
+    return res/n if res%n==0 else -1
+
+# Equal Sides Of An Array
+def find_even_index(arr):
+    for i in range(len(arr)):
+        if sum(arr[:i+1]) == sum(arr[i:]): return i
+    return -1
+
+# Break camelCase
+def solution(s):
+    res = ""
+    for i in s:
+        if i.isupper():
+            res+=f" {i}" 
+        else:
+            res+=i
+    return res
+
+# Decode the Morse code
+# from preloaded import MORSE_CODE
+
+# def decode_morse(morse_code):
+#     morse_code = morse_code.strip()
+#     return " ".join(["".join([MORSE_CODE[char] for char in word.split(" ")]) for word in morse_code.split("   ")])
+
+# Is a number prime?
+def is_prime(num):
+    if num < 2: return False
+    for i in range(2, int(num**.5)+1):
+        if num%i == 0: return False
+    return True
+# or:
+def is_prime(num):
+    if num==2: return True
+    if num < 2 or num%2==0: return False
+    for i in range(3, int(num**.5)+1, 2):
+        if num%i == 0: return False
+    return True
+
+# Sort the odd
+def sort_array(source_array):
+    odds = sorted([i for i in source_array if i % 2 != 0])
+    
+    for i in range(len(source_array)):
+        if source_array[i] % 2 != 0:
+            source_array[i] = odds.pop(0)  
+    return source_array
+
+# Are they the "same"?
+def comp(array1, array2):
+    if type(array1) != list or type(array2) != list: return False
+    return sorted([i**2 for i in array1]) == sorted(array2)
+	
+# Build Tower
+def tower_builder(n_floors):
+    start = 1
+    res = []
+    
+    for i in range(n_floors):
+        res.append("*"*start)
+        start += 2
+    
+    last=len(res[-1])
+    res = [f"{((last - len(i))//2)*' '}{i}{((last - len(i))//2)*' '}" for i in res]
+    return res
+
+# Highest Scoring Word
+def high(x):
+    alphabet="abcdefghijklmnopqrstuvwxyz"
+    res = [sum([alphabet.index(z)+1 for z in i]) for i in x.split(" ")]
+    return x.split(" ")[res.index(max(res))]
+# or:
+def high(x):
+    return x.split(" ")[[sum(["abcdefghijklmnopqrstuvwxyz".index(z)+1 for z in i]) for i in x.split(" ")].index(max([sum(["abcdefghijklmnopqrstuvwxyz".index(z)+1 for z in i]) for i in x.split(" ")]))]
+
+# Find the missing letter
+def find_missing_letter(chars):
+    alphabet="abcdefghijklmnopqrstuvwxyz"
+    new = alphabet[alphabet.index(chars[0].lower()) : alphabet.index(chars[-1].lower())]
+    return [i for i in new if i not in [x.lower() for x in chars]][0] if chars[0].islower() else [i for i in new if i not in [x.lower() for x in chars]][0].upper()
+
+# Count the smiley faces!
+def count_smileys(arr):
+    smileys = []
+    for s in arr:
+        if len(s) == 2 and s[0] in [":", ";"] and s[-1] in [")", "D"]:
+            smileys.append(s)
+        elif len(s) > 2 and s[0] in [":", ";"] and s[1] in ["-", "~"] and s[-1] in [")", "D"]:
+            smileys.append(s)
+    return len(smileys)

@@ -228,3 +228,4 @@ def count_smileys(arr):
         elif len(s) > 2 and s[0] in [":", ";"] and s[1] in ["-", "~"] and s[-1] in [")", "D"]:
             smileys.append(s)
     return len(smileys)
+

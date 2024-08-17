@@ -362,3 +362,277 @@ def check(num):
     for i in range(len(str(num))):
         res += int(str(num)[i]) ** (i+1)
     return res
+
+# The Supermarket Queue
+def queue_time(customers, n):
+    tills = [0]*n
+    for i in customers:
+        tills[0] += i
+        tills.sort()
+    return max(tills)
+
+# Roman Numerals Decoder
+def solution(roman_numeral):
+    roman_dict = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+    result = 0
+
+    for i in range(len(roman_numeral)):
+        if i > 0 and roman_dict[roman_numeral[i]] > roman_dict[roman_numeral[i-1]]:
+            result += roman_dict[roman_numeral[i]] - 2 * roman_dict[roman_numeral[i-1]]
+        else:
+            result += roman_dict[roman_numeral[i]]
+            
+    return result
+
+# WeIrD StRiNg CaSe
+def to_weird_case(words):
+    res = []
+    for word in words.split(" "):
+        new_word = ""
+        for char in range(len(word)):
+            if char%2 == 0: new_word += word[char].upper()
+            else: new_word += word[char].lower()
+        res.append(new_word)
+    return " ".join(res)
+
+# CamelCase Method
+def camel_case(s):
+    return "".join([word.capitalize() for word in s.split(" ")])
+
+# IP Validation
+def is_valid_IP(strng):
+    if not strng: 
+        return False
+    
+    segments = strng.split(".")
+    
+    if len(segments) != 4:
+        return False
+    
+    for segment in segments:
+        if not segment.isdigit():
+            return False
+        if not 0 <= int(segment) <= 255:
+            return False
+        if len(segment) > 1 and segment[0] == '0':
+            return False
+    
+    return True
+
+# Multiplication table
+def multiplication_table(size):
+    res = []
+    for i in range(1, size + 1):
+        new_arr = []
+        for j in range(1, size + 1):
+            new_arr.append(i * j)
+        res.append(new_arr)
+    return res
+
+# Title Case
+def title_case(title, minor_words=''):
+    return " ".join([title.split()[0].capitalize()] + [word.capitalize() if word.lower() not in minor_words.lower().split() else word.lower() for word in title.split()[1:]]) if title else ""
+
+# Give me a Diamond
+def diamond(n):
+    if n % 2 == 0 or n < 1:
+        return None
+    
+    res = []
+    max_width = n
+    for i in range(0, n, 2):
+        stars = '*' * (i + 1)
+        res.append(stars.center(max_width).rstrip())
+    
+    res += res[-2::-1]
+    return "\n".join(res) + '\n'
+
+# Make the Deadfish Swim
+def parse(data):
+    res = []
+    
+    start = 0
+    for i in data:
+        if i == "i": start += 1
+        elif i == "d": start -= 1
+        elif i == "s": start **= 2
+        elif i == "o": res.append(start)
+    return res
+
+# Rectangle into Squares
+def sq_in_rect(lng, wdth):
+    arr = []
+    if lng == wdth:
+        return None
+    while lng > 0 and wdth > 0:
+        arr.append(wdth if lng > wdth else lng)
+        if lng > wdth:
+            lng -= wdth
+        else:
+            wdth -= lng
+    return arr
+
+# Tortoise racing
+def race(v1, v2, g):
+    if v1 >= v2:
+        return None
+    
+    time_in_hours = g / (v2 - v1)
+    
+    hours = int(time_in_hours)
+    
+    time_in_minutes = (time_in_hours - hours) * 60
+    minutes = int(time_in_minutes)
+    
+    time_in_seconds = (time_in_minutes - minutes) * 60
+    seconds = int(time_in_seconds)
+    
+    return [hours, minutes, seconds] if seconds != 59 else [hours, minutes+1, 0]
+# or:
+def race(v1, v2, g):
+    t = 3600 * g/(v2-v1)
+    return [t/3600, t/60%60, t%60] if v2 > v1 else None
+
+# Help the bookseller !
+def stock_list(list_of_art, list_of_cat):
+    if not list_of_art or not list_of_cat:
+        return ""
+    
+    res = []
+    for cat in list_of_cat:
+        total = sum(int(item.split()[1]) for item in list_of_art if item[0] == cat)
+        res.append(f"({cat} : {total})")
+    
+    return " - ".join(res)
+
+# Simple Encryption #1 - Alternating Split
+def encrypt(text, n):
+    if not text or n <= 0: return text
+
+    for _ in range(n):
+        odd_chars = text[1::2]
+        even_chars = text[0::2]
+        text = odd_chars + even_chars
+
+    return text
+
+def decrypt(encrypted_text, n):
+    if not encrypted_text or n <= 0:
+        return encrypted_text
+
+    half = len(encrypted_text) // 2
+    for _ in range(n):
+        odd_chars = encrypted_text[:half]
+        even_chars = encrypted_text[half:]
+        encrypted_text = ''.join(even_chars[i:i+1] + odd_chars[i:i+1] for i in range(half))
+        if len(even_chars) > len(odd_chars):
+            encrypted_text += even_chars[-1]
+
+    return encrypted_text
+
+# Good vs Evil
+def good_vs_evil(good, evil):
+    good, evil = [int(i) for i in good.split(" ")], [int(i) for i in evil.split(" ")]
+    count1 = good[0] + good[1]*2 + good[2]*3 + good[3]*3 + good[4]*4 + good[5]*10
+    count2 = evil[0] + evil[1]*2 + evil[2]*2 + evil[3]*2 + evil[4]*3 + evil[5]*5 + evil[6]*10
+    sub = count1 - count2
+    if sub == 0: return "Battle Result: No victor on this battle field"
+    elif sub < 0: return "Battle Result: Evil eradicates all trace of Good"
+    else: return "Battle Result: Good triumphs over Evil"
+
+# Sums of Parts
+def parts_sums(ls):
+    res = [sum(ls)]
+    total = res[0]
+    
+    for i in range(len(ls)):
+        total -= ls[i]
+        res.append(total)
+    
+    return res
+
+# Data Reverse
+def data_reverse(data):
+    new = []
+    
+    start = 0
+    for i in range(8, len(data)+1, 8):
+        new.append(data[start:i])
+        start = i 
+
+    new = reversed(new)
+    res = []
+    for i in new:
+        for x in i:
+            res.append(x)
+    return res
+
+# Reverse or rotate?
+def rev_rot(strng, sz):
+    if sz == 0: return ""
+    new = []
+    start = 0
+    for i in range(sz, len(strng)+1, sz):
+        new.append(strng[start:i])
+        start = i 
+    
+    res = []
+    for chunk in new:
+        if sum([int(i) for i in chunk])%2 == 0: res.append("".join(list(reversed(chunk))))
+        else: res.append(chunk[1:]+chunk[0])
+    
+    return "".join(res)
+
+# Encrypt this!
+def encrypt_this(text):
+    if not text: return ""
+    return " ".join([main(word) for word in text.split(" ")])
+
+def main(word):
+    if len(word) == 1: return str(ord(word[0]))
+    elif len(word) == 2: return str(ord(word[0])) + word[1]
+    elif len(word) == 2: return str(ord(word[0])) + word[-1] + word[1]
+    return str(ord(word[0])) + word[-1] + word[2:-1] + word[1]
+
+# Find the missing term in an Arithmetic Progression
+def find_missing(sequence):
+    all = []
+    for i in range(1, len(sequence)-1):
+        all.append(sequence[i] - sequence[i-1])
+    
+    if sorted(all)[0] == sorted(all)[1]: prog = all[0]
+    else: prog = sorted(all)[-1]
+    
+    for i in range(1, len(sequence)-1):
+        if sequence[i] - sequence[i-1] != prog: return sequence[i] - prog
+    return sequence[-1] - prog
+
+# N-th Fibonacci
+def nth_fib(n):
+    res = [0, 1]
+    while len(res) < n:
+        res.append(res[-2] + res[-1])
+    return res[-1] if n != 1 else 0
+
+# Meeting
+def meeting(s):
+    all = [[word.split(":")[0].upper(), word.split(":")[1].upper()] for word in s.split(";")]
+    all = sorted(all, key=lambda x: (x[1], x[0]))
+    renewed = "".join([f"({word[1]}, {word[0]})" for word in all])
+    
+    return renewed
+# or
+def meeting(s):
+    return "".join([f"({word[1]}, {word[0]})" for word in sorted([[word.split(":")[0].upper(), word.split(":")[1].upper()] for word in s.split(";")], key=lambda x: (x[1], x[0]))])
+
+# Valid Phone Number
+def validPhoneNumber(phoneNumber):
+    number = ''
+    template = '(xxx) xxx-xxxx'
+    for l in phoneNumber:
+        if l.isdigit():
+            number += 'x'
+        else:
+            number += l
+    
+    return number == template

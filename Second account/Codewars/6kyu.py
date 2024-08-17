@@ -229,3 +229,136 @@ def count_smileys(arr):
             smileys.append(s)
     return len(smileys)
 
+# Delete occurrences of an element if it occurs more than n times
+def delete_nth(order,max_e):
+    res = []
+    
+    for i in order:
+        if res.count(i) < max_e:
+            res.append(i)
+    return res
+
+# Count characters in your string
+def count(s):
+    return {i: s.count(i) for i in set(s)}
+
+# Bouncing Balls
+def bouncing_ball(h, bounce, window):
+    if bounce >= 1 or bounce <= 0 or h < 0 or window < 0 or window == h: return -1
+    
+    bounces = 0
+    while h > window:
+        h = bounce*h
+        if h > window:
+            bounces += 2
+    return bounces + 1
+
+# Build a pile of Cubes
+def find_nb(m):
+    n = 0
+    volume = 0
+    
+    while volume < m:
+        n += 1
+        volume += n ** 3
+    
+    return n if volume == m else -1
+
+# Two Sum
+def two_sum(numbers, target):
+    res = []
+    
+    for i in range(len(numbers)):
+        for x in range(i):
+            if numbers[i] + numbers[x] == target: res.append((i, x))
+    return res[0]
+
+# Which are in?
+def in_array(array1, array2):
+    res = []
+    
+    for i in array1:
+        for x in array2:
+            if i in x: res.append(i)
+    
+    return sorted(list(set(res)))
+
+# Write Number in Expanded Form
+def expanded_form(num):
+    res = []
+    
+    for i in range(len(str(num))):
+        res.append(str(num)[i] + "0"*(len(str(num))-i-1))
+    return " + ".join([i for i in res if sum([int(x) for x in i])!= 0])
+
+# Consecutive strings
+def longest_consec(strarr, k):
+    arr_length = len(strarr)
+    arr = []
+    
+    if arr_length == 0 or k > arr_length or k <= 0:
+        return ""
+    
+    for i in range(arr_length - k + 1):
+        current = strarr[i]
+        for ii in range(k - 1):
+            current += strarr[i + ii + 1]
+        arr.append(current)
+    
+    return max(arr, key=len) if arr else ""
+
+# Valid Braces
+def validBraces(string):
+    parenthesis = []
+    pardict = {"{":"}", "[":"]", "(":")", "}":"{", "]":"[", ")":"("}
+    for i in range(len(string)):
+        if string[i] == "(" or string[i] == "[" or string[i] == "{":
+            parenthesis.append(string[i])
+        else:
+            if len(parenthesis) == 0:
+                return False
+            elif pardict[string[i]] == parenthesis[len(parenthesis)-1]:
+                del parenthesis[len(parenthesis)-1]
+            else:
+                return False
+    if len(parenthesis) != 0:
+        return False
+    return True
+
+# Mexican Wave
+def wave(people):
+    res = []
+    
+    for i in range(len(people)):
+        if people[i].isalpha(): 
+            res.append(people[:i] + people[i].upper() + people[i+1:])
+    return res
+
+# Roman Numerals Encoder
+def solution(n):
+    val = [
+        1000, 900, 500, 400, 100, 90,
+        50, 40, 10, 9, 5, 4, 1
+    ]
+    syb = [
+        "M", "CM", "D", "CD", "C", "XC",
+        "L", "XL", "X", "IX", "V", "IV", "I"
+    ]
+    roman = ''
+    i = 0
+    while n > 0:
+        for _ in range(n // val[i]):
+            roman += syb[i]
+            n -= val[i]
+        i += 1
+    return roman
+
+# Take a Number And Sum Its Digits Raised To The Consecutive Powers And ....¡Eureka!!
+def sum_dig_pow(a, b):
+    return [i for i in range(a, b+1) if i==check(i)]
+
+def check(num):
+    res = 0
+    for i in range(len(str(num))):
+        res += int(str(num)[i]) ** (i+1)
+    return res

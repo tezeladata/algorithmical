@@ -883,3 +883,124 @@ def abbreviate(s):
 
 # def to_nato(words):
 #     return " ".join([NATO.get(word.upper(), word) for word in words if not word.isspace()])
+
+# Street Fighter 2 - Character Selection
+def street_fighter_selection(fighters, position, moves):
+    hovered_characters = []
+    current_position = list(position) 
+
+    for move in moves:
+        if move == 'up':
+            if current_position[0] == 0:
+                hovered_characters.append(fighters[current_position[0]][current_position[1]])
+            else:
+                current_position[0] -= 1
+                hovered_characters.append(fighters[current_position[0]][current_position[1]])
+
+        elif move == 'down':
+            if current_position[0] == 1:
+                hovered_characters.append(fighters[current_position[0]][current_position[1]])
+            else:
+                current_position[0] += 1
+                hovered_characters.append(fighters[current_position[0]][current_position[1]])
+
+        elif move == 'left':
+            if current_position[1] == 0:
+                current_position[1] = 5
+                hovered_characters.append(fighters[current_position[0]][current_position[1]])
+            else:
+                current_position[1] -= 1
+                hovered_characters.append(fighters[current_position[0]][current_position[1]])
+
+        elif move == 'right':
+            if current_position[1] == 5:
+                current_position[1] = 0
+                hovered_characters.append(fighters[current_position[0]][current_position[1]])
+            else:
+                current_position[1] += 1
+                hovered_characters.append(fighters[current_position[0]][current_position[1]])
+
+    return hovered_characters
+
+# Pascal's Triangle
+def pascals_triangle(depth):
+    arr = []
+    
+    for i in range(depth):
+        sub_arr = []
+        for j in range(i + 1):
+            if j == 0 or j == i:
+                sub_arr.append(1)
+            else:
+                sub_arr.append(arr[i-1][j] + arr[i-1][j-1])
+        arr.append(sub_arr)
+    
+    fin = []
+    for i in arr:
+        for x in i: fin.append(x)
+    
+    return fin
+
+# Playing with passphrases
+def play_pass(s, n):
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    output = ''
+    for i, char in enumerate(s):
+        print(char)
+        if char.isalpha():
+            indx = alphabet.index(char.lower()) 
+            new_char = alphabet[(indx+n)%26]
+            if i % 2 == 0:
+                new_char = new_char.upper()
+        elif char.isnumeric():
+            new_char = str(9-int(char))
+        else:
+            new_char = char
+        output += new_char
+    return output[::-1]
+
+# Character with longest consecutive repetition
+def longest_repetition(chars):
+    if not chars: return ('', 0)
+    all, score = [], 1
+    for i in range(len(chars)-1):
+        if chars[i] == chars[i+1]: score += 1
+        else:
+            all.append([chars[i], score])
+            score = 1
+    all.append([chars[-1], score])
+    all.sort(key = lambda x: x[1], reverse=True)
+    return (all[0][0], all[0][1])
+
+# +1 Array
+def up_array(arr):
+    
+    if not arr or min(arr) < 0 or max(arr) > 9:
+        return None
+    
+    for i in range(len(arr)-1,-1,-1):
+        arr[i] += 1 
+        if arr[i] < 10: return arr
+        else: arr[i] = 0
+        
+    return [1]+arr
+
+# Reverse polish notation calculator
+def calc(expr):
+    result = []
+    atoms = expr.split()
+    operators = ['+', '-', '*', '/']
+    
+    for i in range(len(atoms)):
+        if atoms[i] == '+':
+            result.append(result.pop() + result.pop())
+        elif atoms[i] == '-':
+            result.append(-result.pop() + result.pop())
+        elif atoms[i] == '*':
+            result.append(result.pop() * result.pop())
+        elif atoms[i] == '/':
+            result.append(1 / (result.pop() / result.pop()))
+        else:
+            result.append(float(atoms[i]))
+    
+    return result.pop() if result else 0

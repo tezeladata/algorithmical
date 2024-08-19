@@ -636,3 +636,250 @@ def validPhoneNumber(phoneNumber):
             number += l
     
     return number == template
+
+# The Vowel Code
+def encode(st):
+    return "".join([{"a": "1", "e": "2", "i": "3", "o": "4", "u": "5"}[i] if i in "aeiou" else i for i in st])
+    
+def decode(st):
+    return "".join([{"1": "a", "2": "e", "3": "i", "4": "o", "5": "u"}[i] if i in "12345" else i for i in st])
+
+# Backspaces in string
+def clean_string(s):
+    output = ''
+    for i, letter in enumerate(s):
+        if letter == '#':
+            output = output[:-1]
+        else:
+            output += letter
+    return output
+
+# Pyramid Array
+def pyramid(n):
+    res = []
+    for i in range(n):
+        new_arr = []
+        for _ in range(i+1): new_arr.append(1)
+        res.append(new_arr)
+    return res
+
+# Consonant value
+def solve(s):
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    s = s.replace("a", "_").replace("e", "_").replace("i", "_").replace("o", "_").replace("u", "_").split("_")
+    res = []
+    
+    for word in s:
+        sum = 0
+        for i in word: sum += alphabet.index(i)+1
+        res.append([word, sum])
+    return sorted(res, key=lambda x: x[1], reverse=True)[0][1]
+
+# Buying a car
+def nbMonths(startPriceOld, startPriceNew, savingperMonth, percentLossByMonth):
+    months = 0
+    savings = 0
+
+    while startPriceOld + savings < startPriceNew:
+        months += 1
+        savings += savingperMonth
+
+        if months % 2 == 0:
+            percentLossByMonth += 0.5
+            print('this is the month: ', months)
+
+        startPriceOld *= ((100 - percentLossByMonth) / 100)
+        startPriceNew *= ((100 - percentLossByMonth) / 100)
+
+    return [months, round(startPriceOld + savings - startPriceNew)]
+
+# Length of missing array
+def get_length_of_missing_array(arrs):
+    if not arrs or any(arr is None or len(arr) == 0 for arr in arrs):
+        return 0
+
+    arrs.sort(key=len)
+    for i in range(1, len(arrs)):
+        if len(arrs[i]) - len(arrs[i-1]) > 1:
+            return len(arrs[i-1]) + 1
+    return 0
+
+# Highest Rank Number in an Array
+def highest_rank(arr):
+    return sorted([[i, arr.count(i)] for i in set(arr)], key=lambda x: (x[1], x[0]), reverse=True)[0][0]
+
+# Validate Credit Card Number
+def validate(n):
+    n = str(n)
+    
+    if len(n) % 2 == 0:
+        res = [int(n[i]) * 2 if i % 2 == 0 else int(n[i]) for i in range(len(n))]
+    else:
+        res = [int(n[i]) * 2 if i % 2 != 0 else int(n[i]) for i in range(len(n))]
+    
+    res = [i if i <= 9 else i - 9 for i in res]
+    
+    return sum(res) % 10 == 0
+
+# A Rule of Divisibility by 13
+def thirt(n):
+    pattern = [1, 10, 9, 12, 3, 4]
+    sum = 0
+
+    while True:
+        current_sum = 0
+        for index, digit in enumerate(str(n)[::-1]):
+            current_index = index % len(pattern)
+            current_sum += int(digit) * pattern[current_index]
+
+        if sum == current_sum:
+            return sum
+
+        sum = current_sum
+        n = current_sum
+
+# Pair of gloves
+def number_of_pairs(gloves):
+    return sum(x[1] for x in [[i, gloves.count(i) // 2] for i in set(gloves)])
+
+# Dashatize it
+def dashatize(n):
+    if n is None:
+        return 'None'
+    
+    res = ""
+    n_str = str(abs(n))  
+    for i, char in enumerate(n_str):
+        if int(char) % 2 != 0:  
+            if i != 0:  
+                res += "-"
+            res += char
+            if i != len(n_str) - 1:  
+                res += "-"
+        else:
+            res += char
+    
+    return res.replace("--", "-")
+
+# Triple trouble
+def triple_double(num1, num2):
+    for digit in "0123456789":
+        if digit * 3 in str(num1):
+            if digit * 2 in str(num2):
+                return 1
+    return 0
+
+# Function Composition
+def compose(f, g):
+    def composed(*args):
+        if len(args) > 1:
+            return f(g(*args))
+        else:
+            return f(g(args[0]))
+    return composed
+
+# Matrix Addition
+def matrix_addition(a, b):
+    res = []
+    for i in range(len(a)):
+        row = []
+        for x in range(len(a[i])):
+            row.append(a[i][x] + b[i][x])
+        res.append(row)
+    return res
+
+# Handshake problem
+def get_participants(handshakes):
+    if handshakes == 0: return 0
+    i, k = 0, 1
+    while i < handshakes:
+        i += k
+        k += 1
+    return k
+
+# Fibonacci, Tribonacci and friends
+def xbonacci(signature, n):
+    res = signature.copy()
+    while len(res) < n: res.append(sum(res[-len(signature):]))
+    return res[:n]
+
+# Prefill an Array
+def prefill(n, v=None):
+    try:
+        n = int(n)
+        if n < 0:
+            raise ValueError(f"{n} is invalid")
+    except (ValueError, TypeError):
+        raise TypeError(f"{n} is invalid")
+    
+    return [v] * n
+
+# Multi-tap Keypad Text Entry on an Old Mobile Phone
+def presses(phrase):
+    comb = {
+            '1ADGJMPTW *#': 1,
+            'BEHKNQUX0': 2,
+            'CFILORVY': 3,
+            '23456S8Z': 4,
+            '79': 5
+        }
+    
+    return sum(value for char in phrase.upper() for key, value in comb.items() if char in key)
+
+# Array Deep Count
+def deep_count(a):
+    count = 0
+    for i in a:
+        if isinstance(i, list):
+            count += deep_count(i)
+        count += 1
+    return count
+
+# Kebabize
+def kebabize(st):
+    res, st = "", "".join([i for i in st if i not in "1234567890"])
+    for i in st:
+        if i.islower(): res += i
+        else: res += f"-{i.lower()}"
+        
+    if not res: return ""
+    return res if res[0] != "-" else res[1:]
+
+# Lottery Ticket
+def bingo(ticket,win):
+    score = 0
+    for i in ticket:
+        word = i[0]
+        for x in word:
+            if ord(x) == i[1]:
+                score += 1
+                break
+    return 'Winner!' if score >= win else 'Loser!'
+
+# Don't rely on luck.
+from random import randint,seed
+seed(1)
+guess = randint(1,100)
+seed(1)
+
+# Word a10n (abbreviation)
+def abbreviate(s):
+    def a10n(arr):
+        return f"{arr[0]}{l - 2}{arr[-1]}" if (l := len(arr)) > 3 else ''.join(arr)
+    
+    result, word = [], []
+    for c in s:
+        if c.isalpha():
+            word.append(c)
+        else:
+            result.append(a10n(word) + c)
+            word.clear()
+    else:
+        result.append(a10n(word))
+    return ''.join(result)
+
+# If you can read this...
+# from preloaded import NATO
+
+# def to_nato(words):
+#     return " ".join([NATO.get(word.upper(), word) for word in words if not word.isspace()])

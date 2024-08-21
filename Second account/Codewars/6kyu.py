@@ -1004,3 +1004,262 @@ def calc(expr):
             result.append(float(atoms[i]))
     
     return result.pop() if result else 0
+
+# Fold an array
+def fold_array(array, runs):
+    for i in range(runs): 
+        array = folder(array)
+    return array
+
+def folder(arr):
+    res = []
+    while len(arr) > 1:
+        res.append(arr[0] + arr[-1])
+        arr = arr[1:-1]
+    if arr: res.append(arr[0])
+    return res
+
+# longest_palindrome
+def longest_palindrome(s):
+    if not s: return 0
+
+    max_len = 1 
+    for i in range(1, len(s) + 1):
+        for j in range(len(s) - i + 1):
+            x = j + i - 1
+            
+            is_palindrome = True
+            for k in range((x - j + 1) // 2):
+                if s[j + k] != s[x - k]:
+                    is_palindrome = False
+                    break
+            
+            if is_palindrome:
+                max_len = max(max_len, x - j + 1)
+    
+    return max_len
+
+# IPv4 to int32
+def ip_to_int32(ip):
+    binary_parts = [f'{int(i):08b}' for i in ip.split(".")]
+    binary_string = ''.join(binary_parts)
+    return int(binary_string, 2)
+# or:
+def ip_to_int32(ip):
+    return int(''.join([f'{int(i):08b}' for i in ip.split(".")]), 2)
+
+# Base Conversion
+def convert(input_str, source_alphabet, target_alphabet):
+    base10_value = 0
+    source_base = len(source_alphabet)
+    
+    for char in input_str:
+        base10_value = base10_value * source_base + source_alphabet.index(char)
+    
+    if base10_value == 0:
+        return target_alphabet[0]
+    
+    target_base = len(target_alphabet)
+    result = []
+    
+    while base10_value > 0:
+        result.append(target_alphabet[base10_value % target_base])
+        base10_value //= target_base
+    
+    return ''.join(reversed(result))
+
+# Reverse every other word in the string
+def reverse_alternate(st):
+    words = st.split()
+    reversed_words = [word[::-1] if i % 2 != 0 else word for i, word in enumerate(words)]
+    return " ".join(reversed_words)
+
+# Statistics for an Athletic Association
+def stat(strg):
+    if strg == "":
+        return ''
+    
+    data_list = []
+    for runner_time in strg.split(", "):
+        times = convert_to_seconds([int(time) for time in runner_time.split("|")])
+        data_list.append(times)
+    data_list.sort()
+    
+    
+    return f"Range: {stat_range(data_list)} Average: {stat_mean(data_list)} Median: {stat_median(data_list)}"
+
+
+# Funcs for convertions
+def convert_to_seconds(time):
+    return time[0] * 3600 + time[1] * 60 + time[2]
+
+def convert_to_hms(seconds):
+    hours = int(seconds / 3600 // 1)
+    minutes = int((seconds - hours * 3600) / 60 // 1)
+    seconds = int(seconds - hours * 3600 - minutes * 60)
+    
+    return f"{hours:02d}|{minutes:02d}|{seconds:02d}"
+
+
+# Funcs for range, mean, median
+def stat_range(data):
+    return convert_to_hms(data[-1] - data[0])
+
+def stat_mean(data):
+    return convert_to_hms(sum(data) / len(data))
+    
+def stat_median(data):
+    data_length = len(data)
+    middle = data_length // 2
+    
+    if data_length % 2 == 0:
+        return convert_to_hms((data[middle - 1] + data[middle]) / 2)
+    return convert_to_hms(data[middle])
+
+# What century is it?
+def what_century(year):
+    year = int(year)
+    if year%100 == 0: cent = str(year // 100)
+    else: cent = str((year // 100) + 1)
+    
+    if cent[-1] == "1" and cent[0] != "1": return f"{cent}st"
+    elif cent[-1] == "2" and cent[0] != "1": return f"{cent}nd"
+    elif cent[-1] == "3" and cent[0] != "1": return f"{cent}rd"
+    return f"{cent}th"
+
+# Run-length encoding
+def run_length_encoding(s):
+    if not s:
+        return []
+    
+    encoded = []
+    count = 1
+    
+    for i in range(1, len(s)):
+        if s[i] == s[i - 1]:
+            count += 1
+        else:
+            encoded.append([count, s[i - 1]])
+            count = 1
+    
+    encoded.append([count, s[-1]])
+    return encoded
+
+# Grouped by commas
+def group_by_commas(n):
+    n = str(n)
+    if len(n)%3 == 1:
+        if len(n)<3:
+            return n
+        else:
+            new_str = ""
+            for i in range(len(n)):
+                if i==1 or i==4 or i==7:
+                    new_str += f",{n[i]}"
+                else:
+                    new_str += n[i]
+            return new_str
+        
+    elif len(n)%3==2:
+        if len(n)<3:
+            return n
+        else:
+            new_str = ""
+            for i in range(len(n)):
+                if i==2 or i==5:
+                    new_str += f",{n[i]}"
+                else:
+                    new_str += n[i]
+            return new_str
+    else:
+        if len(n)==3:
+            return n
+        else:
+            new_str = ""
+            for i in range(len(n)):
+                if i==3 or i==6:
+                    new_str += f",{n[i]}"
+                else:
+                    new_str += n[i]
+            return new_str
+        
+# Decipher this!
+def decipher_this(string):
+    translated = []
+    for word in string.split():
+        digits = ''
+        for c in word:
+            if c.isdigit():
+                digits += c
+        word = word.replace(digits, chr(int(digits)))    
+        if len(word) > 2:
+            translated.append(''.join([word[0], word[-1], word[2:-1], word[1]]))
+        else:
+            translated.append(word)
+    return ' '.join(translated)
+
+# Sorting by bits
+def sort_by_bit(arr):
+    arr.sort(key=lambda x:(bin(x).count('1'), x))
+    return arr
+
+# English beggars
+def beggars(values, n):
+    output = []
+    for i in range(n):
+        indeces = list(range(i,len(values), n))
+        total = 0
+        for index in indeces:
+            total += values[index]
+        output.append(total)
+    return output
+
+# Two Joggers
+def nbr_of_laps(x, y):
+    lcm = x
+    
+    while lcm%y != 0: lcm += x
+    return (int(lcm / x), int(lcm / y))
+
+# Clocky Mc Clock-Face
+def what_time_is_it(angle):
+    if angle == 360: angle = 0
+
+    hour = int(angle / 30)
+    minute = int((angle % 30) * 2)
+
+    if hour == 0: hour = 12
+    return f"{hour:02}:{minute:02}"
+
+# Triangle type
+def triangle_type(a, b, c):
+    max_side = max(a, b, c)
+    
+    if a + b + c <= 2 * max_side: return 0
+    if 2 * max_side ** 2 == a ** 2 + b ** 2 + c ** 2: return 2
+    if 2 * max_side ** 2 > a ** 2 + b ** 2 + c ** 2: return 3
+    return 1
+
+# Sum consecutives
+def sum_consecutives(lst):
+    if not lst: return []
+
+    res = []
+    current_sum = lst[0]
+    for i in range(1, len(lst)):
+        if lst[i] == lst[i - 1]: current_sum += lst[i]
+        else:
+            res.append(current_sum)
+            current_sum = lst[i]
+    
+    return res + [current_sum]
+
+# New Cashier Does Not Know About Space or Shift
+def get_order(order):
+    menu = ["Burger", "Fries", "Chicken", "Pizza", "Sandwich", "Onionrings", "Milkshake", "Coke"]
+    result = []
+    for item in menu:
+        count = order.count(item.lower())
+        result.extend([item] * count)
+        order = order.replace(item.lower(), '', count)
+    return ' '.join(result)

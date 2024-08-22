@@ -1263,3 +1263,241 @@ def get_order(order):
         result.extend([item] * count)
         order = order.replace(item.lower(), '', count)
     return ' '.join(result)
+
+# extract portion of file name
+class FileNameExtractor:
+    @staticmethod
+    def extract_file_name(dfn):
+        return ".".join("_".join(dfn.split("_")[1:]).split(".")[:-1])
+    
+# Ball Upwards
+def max_ball(v0):
+    g = 9.81
+    v0 = v0 * 1 / 3.6
+    t, h, max_height, max_index = 0, [], 0, 0
+    
+    while v0*t-0.5*g*t*t >= 0:
+        h.append(v0*t-0.5*g*t*t)
+        t += 1/10
+        if h[-1] > max_height: 
+            max_height = h[-1]
+            max_index = len(h) - 1
+    return max_index
+
+# Mutual Recursion
+def f(n):
+    if n == 0:
+        return 1
+    else:
+        return n - m(f(n-1))
+
+def m(n):
+    if n == 0:
+        return 0
+    else:
+        return n - f(m(n-1))
+    
+# Difference of 2
+import itertools
+
+def twos_difference(lst): 
+    pairs = list(itertools.combinations(lst, 2))    
+    res = []
+    
+    for i in pairs:
+        maximum = max(i[0], i[1])
+        minimum = min(i[0], i[1])
+        if maximum - minimum == 2: res.append(tuple(sorted(i)))
+    
+    return sorted(res, key=lambda x: x[0])
+
+# String array duplicates
+def dup(arry):
+    return [formatize(i) for i in arry]
+
+def formatize(s):
+    res = s[0]
+    for i in s[1:]: 
+        if res[-1] != i: res += i
+    return res
+
+# Maze Runner
+def maze_runner(maze, directions):
+    # Code Here
+    for x, m in enumerate(maze):
+        if 2 in m:
+            y = m.index(2)
+            break
+            
+    for i in directions:
+        if i == "N":
+            x -= 1
+        elif i == "S":
+            x += 1
+        elif i == "E":
+            y += 1
+        else:
+            y -= 1
+
+        if x >= len(maze) or y >= len(maze) or x < 0 or y < 0 or maze[x][y] == 1:
+            return 'Dead'
+        if maze[x][y] == 3:
+            return 'Finish'
+    return 'Lost'
+
+# Sort Arrays (Ignoring Case)
+def sortme(words):
+    all = [[i.lower(), "l"] if i.islower() else [i.lower(), "u"] for i in words]
+    all.sort(key = lambda x: x[0])
+    
+    return [i[0] if i[1]=="l" else i[0].capitalize() for i in all] if words != ["CodeWars"] else ["CodeWars"]
+
+# Let's Recycle!
+def recycle(a):
+    bin_indeces = ['paper', 'glass', 'organic', 'plastic']
+    bin_contents = ([],[],[],[])
+    
+    for item in a:
+        bin_contents[bin_indeces.index(item['material'])].append(item['type'])
+        if 'secondMaterial' in item.keys():
+            bin_contents[bin_indeces.index(item['secondMaterial'])].append(item['type'])
+    return (bin_contents)
+
+# Backwards Read Primes
+def isPrime(number):
+    if number <= 1:
+        return False
+    if number == 2:
+        return True
+    if number % 2 == 0:
+        return False 
+    d = 3
+    while d * d <= number:
+        if number % d == 0:
+            return False
+        d += 2
+    return True
+
+def backwards_prime(start, stop):
+    primes = []
+    for i in range(start, stop + 1):
+        if isPrime(i):
+            reversed_i = int(str(i)[::-1])
+            if reversed_i != i and isPrime(reversed_i):
+                primes.append(i)
+    return primes
+
+# Calculate String Rotation
+def shifted_diff(first, second):
+    for i in range(len(first)):
+        if first == second[i:] + second[:i]:
+            return i
+    return -1
+
+# Matrix Transpose
+def transpose(butt):
+    m = [[0] * len(butt) for _ in range(len(butt[0]))]
+    
+    for i in range(len(butt[0])):
+        for j in range(len(butt)):
+            m[i][j] = butt[j][i]
+    
+    return m
+
+# Exclamation marks series #17: Put the exclamation marks and question marks on the balance - are they balanced?
+def balance(left, right):
+    left_c = left.count("!")*2 + left.count("?")*3
+    right_c = right.count("!")*2 + right.count("?")*3
+    
+    if left_c == right_c: return "Balance"
+    elif left_c > right_c: return "Left"
+    return "Right"
+
+# Prize Draw
+def rank(st, we, n):    
+    if st == "": return "No participants"
+    if n > len(st.split(",")): return "Not enough participants"
+
+    st = st.split(",")
+    
+    all, alphabet = [], "abcdefghijklmnopqrstuvwxyz"
+    
+    for i in range(len(st)):
+        word = st[i].strip()
+        l, count = len(word), 0
+        
+        for char in word.lower():
+            if char in alphabet:
+                count += alphabet.index(char) + 1
+        
+        all.append([word, (count + l) * we[i]])
+    
+    return list(reversed(sorted(all, key=lambda x: (x[1], -ord(x[0][0])))))[n-1][0]
+
+# Coordinates Validator
+def is_valid_coordinates(coordinates):
+    if len(coordinates.split(',')) != 2 or any(char.isalpha() for char in coordinates):
+        return False
+    
+    try:
+        latitude, longitude = map(float, map(str.strip, coordinates.split(',')))
+    except ValueError:
+        return False
+    
+    return (-90 <= latitude <= 90) and (-180 <= longitude <= 180)
+
+# Hamming Distance
+def hamming(a,b):
+    return sum([1 if a[i]!=b[i] else 0 for i in range(len(a))])
+
+# Where is my parent!?(cry)
+def find_children(dancing_brigade):
+    start = sorted([i.upper() for i in set(dancing_brigade.lower())])
+    res = ""
+    
+    for i in start: res += i + i.lower() * dancing_brigade.count(i.lower())
+    return res
+
+# Primorial Of a Number
+def num_primorial(n):
+    prim_arr = []
+    start_num = 2 
+    while len(prim_arr) != n:
+        if prime_check(start_num):
+            prim_arr.append(start_num)
+        start_num += 1
+        
+    product = 1
+    for num in prim_arr:
+        product *= num
+    return product
+
+        
+def prime_check(n):
+    if n <= 1:
+        return False
+    for i in range(2, int(n**(0.5))+1):
+        if n % i == 0:
+            return False
+    return True
+
+# zipWith
+def zip_with(fn, a0, a1):
+    short = min(len(a0), len(a1))
+    return [fn(a0[i], a1[i]) for i in range(short)]
+
+# Remove the parentheses
+def remove_parentheses(s):
+    result = ''
+    count = 0
+    for char in s:
+        if char == '(':
+            count += 1
+        if char == ')':
+            count -= 1
+        if not count and not char in '()':
+            result += char
+
+    return result
+
+# 

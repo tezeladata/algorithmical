@@ -1500,4 +1500,298 @@ def remove_parentheses(s):
 
     return result
 
-# 
+# String transformer
+def string_transformer(s):
+    return " ".join(reversed([i.swapcase() for i in s.split(" ")]))
+
+# Steps in Primes
+def step(g, m, n):
+    prime_list = []
+    for num in range(m, n):
+        number_prime = isPrime(num)
+        prime_list.append(number_prime)
+        if number_prime == True:
+            if len(prime_list) > g:
+                if prime_list[num-g-m] == True:
+                    return [num-g, num]
+            else:
+                previous_prime = num
+        
+def isPrime(num):
+    for i in range(2, num):
+        if num % i == 0:
+            return False
+        elif i*i > num:
+            return True
+    return True
+
+# Arrh, grabscrab!
+def grabscrab(said, possible_words):
+    return [word for word in possible_words if chars(word) == chars(said)]
+
+def chars(s):
+    freq = {}
+    for char in s:
+        if char in freq:
+            freq[char] += 1
+        else:
+            freq[char] = 1
+
+    sorted_freq = sorted(freq.items())
+    return sorted_freq
+
+# Is Integer Array?
+def is_int_array(arr):
+    if arr == []:
+        return True
+    if not arr or not isinstance(arr, list):
+        return False
+    for item in arr:
+        try:
+            if int(item) != item:
+                return False
+        except (TypeError, ValueError):
+            return False
+    return True
+
+# "Stringing"+"Me"+"Along"
+class CreateMessage:
+    def __init__(self, initial_string):
+        self.messages = [initial_string]
+    
+    def __call__(self, new_string=""):
+        if new_string:
+            self.messages.append(new_string)
+            return self
+        else:
+            return " ".join(self.messages)
+
+def create_message(s):
+    return CreateMessage(s)
+
+# The Deaf Rats of Hamelin
+def count_deaf_rats(town):
+    left, right = town.replace(' ', '').split('P')
+    
+    left_count = 0
+    right_count = 0
+    
+    for i in range(0, len(left) - 1, 2):
+        if left[i:i+2] == 'O~':
+            left_count += 1
+    
+    for i in range(0, len(right) - 1, 2):
+        if right[i:i+2] == '~O':
+            right_count += 1
+    
+    return left_count + right_count
+
+# Format words into a sentence
+def format_words(words):
+    if not words or words == []: return ""
+
+    words = [i for i in words if i!= ""]
+
+    match len(words):
+        case 0: return ""
+        case 1: return words[0]
+        case 2: return f"{words[0]} and {words[1]}"
+    return f"{', '.join([i for i in words[:-2]])}, {words[-2]} and {words[-1]}"
+
+# Image host filename generator
+# from random import sample
+# from string import ascii_letters
+
+# def generateName(length=6):
+#     while True:
+#         name = ''.join(sample(ascii_letters, length))
+#         if not photoManager.nameExists(name):
+#             return name
+        
+# Sequences and Series
+def get_score(n):
+    return 25*n**2 + 25*n
+
+# Find the Mine!
+def mine_location(field):
+    for arr in range(len(field)):
+        if 1 in field[arr]: return [arr, field[arr].index(1)]
+
+# Transform To Prime
+def minimum_number(numbers):
+    for i in range(sum(numbers), sum(numbers)*2):
+        if isPrime(i): return i - sum(numbers)
+    
+def isPrime(num):
+    for i in range(2, num):
+        if num % i == 0:
+            return False
+        elif i*i > num:
+            return True
+    return True
+
+# Twisted Sum
+def compute_sum(n):
+    digs = []
+    for i in range(n + 1):
+        if i < 10:
+            digs.append(i)
+        else:
+            digs.append(sum([int(digit) for digit in str(i)]))
+    return sum(digs)
+
+# Pascal's Triangle #2
+def pascal(depth):
+    if depth <= 0:
+        return []
+    
+    triangle = [[1]] 
+    
+    for i in range(1, depth):
+        row = [1]  
+        last_row = triangle[-1]
+        for j in range(1, len(last_row)):
+            row.append(last_row[j - 1] + last_row[j])
+        row.append(1)  
+        triangle.append(row)
+    
+    return triangle
+
+# Autocomplete! Yay!
+def autocomplete(input_str, d):
+    input_str = ''.join(char for char in input_str if char.isalpha())
+    
+    arr = []
+    for item in d:
+        if item.lower().startswith(input_str.lower()):
+            arr.append(item)
+    
+    return arr[:5]
+
+# Autocomplete! Yay!
+def autocomplete(input_str, d):
+    input_str = ''.join(char for char in input_str if char.isalpha())
+    
+    arr = []
+    for item in d:
+        if item.lower().startswith(input_str.lower()):
+            arr.append(item)
+    
+    return arr[:5]
+
+# Coding Meetup #7 - Higher-Order Functions Series - Find the most senior developer
+def find_senior(lst):
+    max_age = max(dev['age'] for dev in lst)
+    return [dev for dev in lst if dev['age'] == max_age]
+# or
+def find_senior(lst):
+    return [dev for dev in lst if dev['age'] == max(dev['age'] for dev in lst)]
+
+# Loose Change
+def loose_change(cents):
+    if cents < 0:
+        return {'Nickels': 0, 'Pennies': 0, 'Dimes': 0, 'Quarters': 0}
+
+
+    quarters = cents // 25
+    cents %= 25
+
+
+    dimes = cents // 10
+    cents %= 10
+
+
+    nickels = cents // 5
+    cents %= 5
+
+    pennies = cents//1
+
+    return {'Nickels': nickels, 'Pennies': pennies, 'Dimes': dimes, 'Quarters': quarters}
+
+# Triangle number check
+import math
+
+def is_triangle_number(number):
+    if type(number) != int or number < 0:
+        return False
+
+    n = (-1 + math.sqrt(1 + 8 * number)) / 2
+    return n.is_integer()
+
+# PI approximation
+import math
+
+def iter_pi(epsilon):
+    approximation = 0
+    i = 0
+    sign = 1
+    while True:
+        term = sign / (2 * i + 1)
+        approximation += term
+        approximation_π = 4 * approximation
+        if abs(approximation_π - math.pi) < epsilon:
+            return [i + 1, round(approximation_π, 10)]
+        sign *= -1
+        i += 1
+
+# Throwing Darts
+def score_throws(radii):
+    if radii == []: return 0
+    score, count = 0, 0
+    
+    for i in radii:
+        if i >= 5 and i <= 10: score += 5
+        elif i < 5: 
+            score += 10
+            count += 1
+
+    return score + 100 if count == len(radii) else score
+
+# Binary to Text (ASCII) Conversion
+def binary_to_string(binary):
+    if binary == "":
+        return ""
+    
+    chunks = [binary[i:i+8] for i in range(0, len(binary), 8)]
+    characters = [chr(int(chunk, 2)) for chunk in chunks]
+    return ''.join(characters)
+
+# Evil Autocorrect Prank
+def autocorrect(s):
+    m = ''
+    for i in s.split():
+        if i=='u':
+            m+="your sister "
+        elif i[:2].lower()=='yo' and all(j=='u' for j in i[2:] if j.isalpha()):
+            m+=("your sister"+(i[-1] if i[-1]!='u' else ' '))
+        else:
+            m+=(i+' ')
+    return m.strip()
+
+# Moves in squared strings (II)
+def rot(string):
+    words = string.replace("\n", " ").split()
+    reversed_words = [word[::-1] for word in words]
+    return "\n".join(reversed(reversed_words))
+    
+    return string
+
+def selfie_and_rot(string):
+    words = string.replace("\n", " ").split()
+    selfie = "\n".join([word + "." * len(word) for word in words])
+    
+    rotated_words = rot(string).split("\n")
+    selfie_rotated = "\n".join(["." * len(word) + word for word in rotated_words])
+    
+    return selfie + "\n" + selfie_rotated
+    
+def oper(fct, s):
+    return fct(s)
+
+# Simple frequency sort
+def solve(arr):
+    return sorted(arr, key=lambda x: (-arr.count(x), x))
+
+# A disguised sequence (I)
+def fcn (n):
+    return 2**(n)

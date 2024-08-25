@@ -2363,3 +2363,80 @@ def max_sum(arr, ranges):
         start, end = rn
         res.append(sum(arr[start:end+1]))
     return max(res)
+
+# Longest alphabetical substring
+def longest(st):
+    max_substring = st[0]
+    current_substring = st[0]
+
+    for i in range(1, len(st)):
+        if st[i] >= st[i - 1]:  
+            current_substring += st[i]
+        else:
+            if len(current_substring) > len(max_substring):
+                max_substring = current_substring
+            current_substring = st[i]  
+    
+    if len(current_substring) > len(max_substring):
+        max_substring = current_substring
+
+    return max_substring
+
+# Adding ordinal indicator suffixes to numbers
+def number_to_ordinal(n):
+    if n == 0: return "0"
+    n_str = str(n)
+
+    if len(n_str) > 1 and n_str[-2] == "1":
+        return n_str + "th"
+
+    match n_str[-1]:
+        case "1": return n_str + "st"
+        case "2": return n_str + "nd"
+        case "3": return n_str + "rd"
+        case _: return n_str + "th"
+
+# Split and then add both sides of an array together.
+def split_and_add(numbers, n):
+    for _ in range(n):
+        if len(numbers) == 1:
+            break
+        mid = len(numbers) // 2
+        left_part = numbers[:mid]
+        right_part = numbers[mid:]
+        
+        if len(left_part) < len(right_part):
+            left_part = [0] * (len(right_part) - len(left_part)) + left_part
+        
+        numbers = [left_part[i] + right_part[i] for i in range(len(right_part))]
+
+    return numbers
+
+# Sum of many ints
+def f(n, m):
+    complete_cycles = n // m
+    remaining_terms = n % m
+
+    cycle_sum = m * (m - 1) // 2
+
+    remaining_sum = remaining_terms * (remaining_terms + 1) // 2
+
+    total_sum = complete_cycles * cycle_sum + remaining_sum
+    
+    return total_sum
+
+# Manhattan Distance
+def manhattan_distance(pointA, pointB):
+    x = max(pointA[0], pointB[0]) - min(pointA[0], pointB[0])
+    y = max(pointA[1], pointB[1]) - min(pointA[1], pointB[1])
+    return x + y
+
+# All Star Code Challenge #15
+def rotate(str):
+    res = []
+    
+    while len(res) != len(str):
+        str = str[1:] + str[0]
+        res.append(str)
+    
+    return res

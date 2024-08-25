@@ -2440,3 +2440,78 @@ def rotate(str):
         res.append(str)
     
     return res
+
+# Even Fibonacci Sum
+def even_fib(n):
+    res = [0, 1]
+    while res[-1] < n: res.append(res[-1] + res[-2])
+    
+    return sum([i for i in res[:-1] if i%2 == 0])
+
+# Braking well
+from math import sqrt
+
+g = 9.81
+
+def dist(v, mu):
+    v_m_s = v * 1000 / 3600
+    d1 = v_m_s * v_m_s / (2 * mu * g)
+    d2 = v_m_s
+    return d1 + d2
+
+def speed(d, mu):
+    a = 1 / (2 * mu * g)
+    b = 1
+    c = -d
+    discriminant = b * b - 4 * a * c
+    if discriminant >= 0:
+        v_m_s1 = (-b + sqrt(discriminant)) / (2 * a)
+        v_m_s2 = (-b - sqrt(discriminant)) / (2 * a)
+        v_kmh1 = v_m_s1 * 3.6
+        v_kmh2 = v_m_s2 * 3.6
+        return v_kmh1 if v_kmh1 >= 0 else v_kmh2
+    else:
+        return None
+    
+# Function iteration
+def create_iterator(func, n):
+    def iterator(seed):
+        result = seed
+        for _ in range(n):
+            result = func(result)
+        return result
+    return iterator
+
+# Change it up
+def changer(s):
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    
+    res = []
+    for i in s.lower():
+        if i in alphabet:
+            res.append(alphabet[(alphabet.index(i) + 1) % 26])
+        else:
+            res.append(i)
+    
+    for i in range(len(res)):
+        if res[i] in "aeiou":
+            res[i] = res[i].upper()
+    
+    return "".join(res)
+
+# Feynman's square question
+def count_squares(n):
+    return n * (n + 1) * (2 * n + 1) // 6
+
+# Adjacent repeated words in a string
+def count_adjacent_pairs(st):
+    words = st.lower().split()
+    count = 0
+    i = 0
+    while i < len(words) - 1:
+        if words[i] == words[i + 1]:
+            count += 1
+            while i < len(words) - 1 and words[i] == words[i + 1]:
+                i += 1
+        i += 1
+    return count

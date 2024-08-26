@@ -2661,3 +2661,7 @@ def is_prime(num):
 def reverse(seq): 
     for i in range(len(seq)>>1):
         seq[i],seq[-i-1] = seq[-i-1],seq[i]
+
+# Basic Encryption
+def encrypt(text, rule):
+    return "".join([chr((ord(i) + rule) % 256) for i in text])

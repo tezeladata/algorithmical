@@ -2515,3 +2515,149 @@ def count_adjacent_pairs(st):
                 i += 1
         i += 1
     return count
+
+# The Office V - Find a Chair
+def meeting(rooms, need):
+    if need == 0: 
+        return "Game On"
+    
+    res = []
+    
+    for occupants, chairs in rooms:
+        available_chairs = max(0, chairs - len(occupants))
+        if need <= available_chairs:
+            res.append(need)
+            return res
+        else:
+            res.append(available_chairs)
+            need -= available_chairs
+    
+    return "Not enough!" if need > 0 else res
+
+# Frog jumping
+def solution(a):
+    position = 0
+    jumps = 0
+    visited = set()
+    
+    while 0 <= position < len(a):
+        if position in visited:
+            return -1  
+        
+        visited.add(position)
+        jump = a[position]
+        position += jump
+        jumps += 1
+    
+    return jumps
+
+# Array combinations
+def solve(arr):
+    unique_subarrays = [set(subarray) for subarray in arr]
+    result = 1
+    for subarray in unique_subarrays: result *= len(subarray)
+    
+    return result
+
+# Turn String Input into Hash
+def str_to_hash(st): 
+    return {i.split("=")[0]: int(i.split("=")[1]) for i in st.split(", ")} if st != "" else {}
+
+# Easy Balance Checking
+def balance(check_book):
+    lines = check_book.splitlines()
+    
+    cleaned_lines = []
+    for line in lines:
+        cleaned_line = ''.join(c for c in line if c.isalnum() or c in ' .')
+        if cleaned_line.strip():
+            cleaned_lines.append(cleaned_line)
+    
+    if not cleaned_lines:
+        return "Original Balance: 0.00\r\nTotal expense  0.00\r\nAverage expense  0.00"
+    
+    original_balance = float(cleaned_lines[0])
+    balance = original_balance
+    total_expense = 0.0
+    num_expenses = 0
+    
+    report_lines = [f"Original Balance: {original_balance:.2f}"]
+
+    for line in cleaned_lines[1:]:
+        parts = line.split()
+        if len(parts) >= 3:
+            check_number = parts[0]
+            category = ' '.join(parts[1:-1])
+            amount = float(parts[-1])
+            balance -= amount
+            total_expense += amount
+            num_expenses += 1
+            report_lines.append(f"{check_number} {category} {amount:.2f} Balance {balance:.2f}")
+    
+    total_expense = round(total_expense, 2)
+    average_expense = round(total_expense / num_expenses, 2) if num_expenses > 0 else 0.0
+    
+    report_lines.append(f"Total expense  {total_expense:.2f}")
+    report_lines.append(f"Average expense  {average_expense:.2f}")
+    
+    return '\r\n'.join(report_lines)
+
+# Sort My Animals
+class Animal:
+    def __init__(self, name, number_of_legs):
+        self.name = name
+        self.number_of_legs = number_of_legs
+
+def sort_animals(animal_list):    
+    return sorted(animal_list, key=lambda x: (x.number_of_legs, x.name)) if animal_list else []
+
+# 1RM Calculator
+def calculate_1RM(w, r):
+    if r == 1: return w
+    if r == 0: return 0
+
+    return round(max(w * (1 + r / 30), (100 * w) / (101.3 - 2.67123 * r), w * (r ** 0.10)))
+
+# Sum of prime-indexed elements
+def total(arr):
+    return sum([arr[i] for i in range(len(arr)) if is_prime(i)])
+
+
+def is_prime(num):
+    if num < 2: return False
+    for i in range(2, int(num**.5)+1):
+        if num%i == 0: return False
+    return True
+
+# Parse HTML/CSS Colors
+# def parse_html_color(color):
+#     color = color.lower()
+    
+#     if color.startswith('#'):
+#         if len(color) == 7:
+#             return {
+#                 'r': int(color[1:3], 16),
+#                 'g': int(color[3:5], 16),
+#                 'b': int(color[5:7], 16)
+#             }
+#         elif len(color) == 4:
+#             return {
+#                 'r': int(color[1] * 2, 16),
+#                 'g': int(color[2] * 2, 16),
+#                 'b': int(color[3] * 2, 16)
+#             }
+#     else:
+#         hex_color = PRESET_COLORS.get(color)
+#         if hex_color:
+#             return {
+#                 'r': int(hex_color[1:3], 16),
+#                 'g': int(hex_color[3:5], 16),
+#                 'b': int(hex_color[5:7], 16)
+#             }
+    
+#     return None
+
+# I need more speed!
+def reverse(seq): 
+    for i in range(len(seq)>>1):
+        seq[i],seq[-i-1] = seq[-i-1],seq[i]

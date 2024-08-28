@@ -130,4 +130,72 @@ def perimeter(n):
         res.append(res[-1] + res[-2])
     return sum(res)*4
 
-# 
+# Directions Reduction
+def dir_reduc(arr):
+    opposite = {"NORTH": "SOUTH", "SOUTH": "NORTH", "EAST": "WEST", "WEST": "EAST"}
+    stack = []
+
+    for direction in arr:
+        if stack and stack[-1] == opposite[direction]:
+            stack.pop()
+        else:
+            stack.append(direction)
+
+    return stack
+
+# Last digit of a large number
+def last_digit(a, b):
+    a = int(a)
+    b = int(b)
+
+    if a == 0 and b == 0:
+        return 1
+
+    if b == 0: return 1
+    if a == 0: return 0
+
+    if b % 4 == 0:
+        res = 4
+    else:
+        res = b % 4
+
+    num = pow(a, res)
+    return num % 10
+
+# int32 to IPv4
+def int32_to_ip(int32):
+    start = bin(int32)[2:].zfill(32)
+    new = [start[i:i+8] for i in range(0, 32, 8)]
+    upt = [str(int(i, 2)) for i in new]
+    return ".".join(upt)
+# or:
+def int32_to_ip(int32):
+    return ".".join([str(int(i, 2)) for i in [bin(int32)[2:].zfill(32)[i:i+8] for i in range(0, 32, 8)]])
+
+# Extract the domain name from a URL
+def domain_name(url):
+    res = url.replace("/", " ").replace("www", " ").replace("https:", " ").replace("http:", " ").split(" ")
+    upt = "".join(res).split(".")
+    fin = [i for i in upt if i != ""]
+    return fin[0]
+# or:
+def domain_name(url):
+    return [i for i in url.replace("/", " ").replace("www", " ").replace("https:", " ").replace("http:", " ").replace(".", " ").split(" ") if i!=""][0]
+
+# Count IP Addresses
+def ip_to_int(ip):
+    parts = map(int, ip.split('.'))
+    return sum(part * (256 ** (3 - i)) for i, part in enumerate(parts))
+
+def ips_between(start, end):
+    return ip_to_int(end) - ip_to_int(start)
+
+# Sum of Pairs
+def sum_pairs(arr, s):
+    seen = set()
+    for num in arr:
+        complement = s - num
+        if complement in seen:
+            return [complement, num]
+        seen.add(num)
+    return None

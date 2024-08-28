@@ -360,3 +360,7 @@ def flatten_and_sort(array):
 # or:
 def flatten_and_sort(array):
     return sorted(x for i in array for x in (i if isinstance(i, list) else [i]))
+
+# Form The Minimum
+def min_value(digits):
+    return int("".join(sorted([str(i) for i in set(digits)])))

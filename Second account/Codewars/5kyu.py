@@ -199,3 +199,115 @@ def sum_pairs(arr, s):
             return [complement, num]
         seen.add(num)
     return None
+
+# Integers: Recreation One
+import math
+
+def list_squared(m, n):
+    def get_divisors(num):
+        divisors = []
+        for i in range(1, int(math.sqrt(num)) + 1):
+            if num % i == 0:
+                divisors.append(i)
+                if i != num // i: divisors.append(num // i)
+        return divisors
+
+    def is_perfect_square(x):
+        return int(math.sqrt(x)) ** 2 == x
+
+    def calc(num):
+        divisors = get_divisors(num)
+        sum_squared = sum(d ** 2 for d in divisors)
+        if is_perfect_square(sum_squared):
+            return [num, sum_squared]
+        return None
+
+    res = [calc(i) for i in range(m, n + 1) if calc(i)]
+    return res
+
+# Not very secure
+def alphanumeric(password):
+    return len([i for i in password if i.isalnum()]) == len(password) if password != "" else False
+
+# Tic-Tac-Toe Checker
+def is_solved(board):
+    win_positions = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+    flat_board = [cell for row in board for cell in row]
+
+    def check_winner(player):
+        return any(all(flat_board[pos] == player for pos in win_pos) for win_pos in win_positions)
+
+    if check_winner(1):
+        return 1
+    elif check_winner(2):
+        return 2
+    elif 0 in flat_board:
+        return -1
+    else:
+        return 0
+
+# Mean Square Error
+def solution(array_a, array_b):
+    if not array_a or not array_b: return 0
+    count = 0
+
+    for i in range(len(array_a)):
+        a, b = array_a[i], array_b[i]
+        if a > b:
+            count += (a - b) ** 2
+        elif b > a:
+            count += (b - a) ** 2
+
+    return count / len(array_a)
+
+# What's a Perfect Power anyway?
+import math
+
+def isPP(n):
+    for m in range(2, int(math.sqrt(n)) + 1):
+        k = round(math.log(n, m))
+        if m ** k == n:
+            return [m, k]
+    return None
+
+# Beeramid
+def beeramid(bonus, price):
+    max_num_of_cans = bonus // price
+    level = 0
+    can_sum = 0
+    if bonus <= 0:
+        return 0
+    while can_sum <= max_num_of_cans:
+        level += 1
+        can_sum += level ** 2
+
+    return level - 1
+
+# Factorial decomposition
+def decomp(n):
+    def prime_factor(num):
+        factors = []
+        d = 2
+        while d * d <= num:
+            while num % d == 0:
+                factors.append(d)
+                num //= d
+            d += 1
+        if num > 1:
+            factors.append(num)
+        return factors
+
+    all_factors = []
+    for i in range(2, n + 1): all_factors.extend(prime_factor(i))
+
+    factor_counts = {}
+    for factor in all_factors:
+        factor_counts[factor] = factor_counts.get(factor, 0) + 1
+
+    result = []
+    for prime in sorted(factor_counts.keys()):
+        count = factor_counts[prime]
+        if count > 1: result.append(f"{prime}^{count}")
+        else: result.append(str(prime))
+
+    return " * ".join(result)

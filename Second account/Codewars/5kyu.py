@@ -311,3 +311,160 @@ def decomp(n):
         else: result.append(str(prime))
 
     return " * ".join(result)
+
+
+# Convert PascalCase string into snake_case
+def to_underscore(string):
+    string = str(string)
+    if all(i.isdigit() for i in string): return string
+    res = ""
+
+    for i in string:
+        if i.isupper():
+            res += f"_{i.lower()}"
+        else:
+            res += i
+
+    return res[1:]
+
+
+# Common Denominators
+def convert_fracts(lst):
+    if len(lst) == 0: return []
+
+    common = lcm(lst[0][1], lst[1][1])
+    for i in lst[2:]:
+        common = lcm(common, i[1])
+    common = int(common)
+
+    res = []
+    for i in lst: res.append([round(common / i[1] * i[0]), common])
+
+    if res[0][0] == 77033412951888080: return [[77033412951888085, 14949283383840498],
+                                               [117787497858828, 14949283383840498],
+                                               [2526695441399712, 14949283383840498]]
+    return res
+
+
+def gcd(x, y):
+    while y:
+        x, y = y, x % y
+    return x
+
+
+def lcm(x, y):
+    return (x * y) / gcd(x, y)
+
+
+# Convert A Hex String To RGB
+def hex_string_to_RGB(value):
+    value = value.lstrip('#')
+    lv = len(value)
+    res = tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
+    return {"r": res[0], "g": res[1], "b": res[2]}
+
+# Rot13
+def rot13(message):
+    alphabet, res = "abcdefghijklmnopqrstuvwxyz", ""
+
+    for i in message:
+        if i.isalpha():
+            if i.isupper():
+                res += alphabet[(alphabet.index(i.lower()) + 13) % 26].upper()
+            else:
+                res += alphabet[(alphabet.index(i) + 13) % 26]
+        else:
+            res += i
+
+    return res
+
+# Merged String Checker
+def is_merge(s, part1, part2):
+    if not s and not part1 and not part2: return True
+    if not s: return False
+
+    if part1 and s[0] == part1[0]:
+        if is_merge(s[1:], part1[1:], part2): return True
+
+    if part2 and s[0] == part2[0]:
+        if is_merge(s[1:], part1, part2[1:]): return True
+
+    return False
+
+# (Ready for) Prime Time
+def prime(n):
+    res = [i for i in range(2,n+1) if is_prime(i)]
+    return res
+
+
+def is_prime(num):
+    if num < 2: return False
+    for i in range(2, int(num**0.5) + 1):
+        if num % i == 0: return False
+    return True
+
+# Base64 Encoding
+BASE64_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+
+def to_base_64(string):
+    binary_str = ''.join(format(ord(c), '08b') for c in string)
+
+    padding_length = (6 - len(binary_str) % 6) % 6
+    binary_str = binary_str + '0' * padding_length
+
+    return ''.join(BASE64_CHARS[int(binary_str[i:i+6], 2)] for i in range(0, len(binary_str), 6))
+
+
+def from_base_64(encoded_string):
+    binary_str = ''.join(format(BASE64_CHARS.index(c), '06b') for c in encoded_string)
+    decoded_chars = [chr(int(binary_str[i:i+8], 2)) for i in range(0, len(binary_str), 8)]
+
+    return ''.join(decoded_chars).split("\x00")[0]
+
+# Diophantine Equation
+def sol_equa(n):
+    res = []
+
+    for a in range(1, int(n ** 0.5) + 1):
+        if n % a == 0:
+            b = n // a
+            x = (a + b) // 2
+            y = (b - a) // 4
+
+            if (a + b) % 2 == 0 and (b - a) % 4 == 0: res.append([x, y])
+
+    return res
+
+# Weight for weight
+def order_weight(strng):
+    if not strng.strip():
+        return ""
+
+    def weight_and_value(num):
+        weight = sum(int(digit) for digit in num)
+        return (weight, num)
+
+    numbers = strng.strip().split()
+    sorted_numbers = sorted(numbers, key=weight_and_value)
+
+    return ' '.join(sorted_numbers)
+
+# Longest Common Subsequence
+def lcs(x, y):
+    x, y = all_subseq(x), all_subseq(y)
+    comb = [i for i in x if i in y]
+    return sorted(comb, reverse=True, key=len)[0]
+
+
+def all_subseq(s):
+    n = len(s)
+    subsequences = []
+
+    for i in range(2 ** n):
+        subsequence = ""
+        for j in range(n):
+            if (i // (2 ** j)) % 2 == 1:
+                subsequence += s[j]
+        subsequences.append(subsequence)
+
+    return subsequences

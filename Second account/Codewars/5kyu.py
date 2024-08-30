@@ -468,3 +468,134 @@ def all_subseq(s):
         subsequences.append(subsequence)
 
     return subsequences
+
+# ROT13
+def rot13(message):
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    res = ""
+
+    for i in message:
+        if i.isalpha():
+            ind = alphabet.index(i.lower())
+            new_ind = (ind + 13) % 26
+
+            if i.isupper():
+                res += alphabet[new_ind].upper()
+            else:
+                res += alphabet[new_ind]
+        else:
+            res += i
+
+    return res
+
+# Simple fraction to mixed number converter
+def gcd(num1, num2):
+    while num1 != 0:
+        num2, num1 = num1, num2 % num1
+    return num2
+
+def mixed_fraction(s):
+    numerator, denominator = (int(i) for i in s.split("/"))
+    if denominator == 0: raise ZeroDivisionError
+
+    sign_s = "-" if numerator and ((numerator < 0) ^ (denominator < 0)) else ""
+    numerator, denominator = abs(numerator), abs(denominator)
+    integ = numerator // denominator
+    if integ:
+        int_s = str(integ)
+        numerator %= denominator
+    else: int_s = ""
+
+    _gcd = gcd(numerator, denominator)
+    numerator //= _gcd
+    denominator //= _gcd
+
+    if numerator:
+        fract_s = str(numerator) + "/" + str(denominator)
+        if int_s: fract_s = " " + fract_s
+    else: fract_s = ""
+
+    return "{}{}{}".format(sign_s, int_s, fract_s) or "0"
+
+# Least Common Multiple
+def gcd(x, y):
+    while y:
+        x, y = y, x % y
+    return x
+
+
+def lcm(*args):
+    if not args:
+        return 1
+    if len(args) == 1:
+        return args[0]
+
+    common = args[0]
+    for i in args[1:]:
+        if common == 0 or i == 0:
+            return 0
+        common = common * i // gcd(common, i)
+
+    return common
+
+# Largest product in a series
+def greatest_product(string, length=5):
+    max_product = 0
+    for i in range(len(string) - length + 1):
+        substring = string[i:i + length]
+
+        product = 1
+        for char in substring: product *= int(char)
+
+        if product > max_product: max_product = product
+
+    return max_product
+
+# k-Primes
+def count_Kprimes(k, start, end):
+    def prime_factors_count(num):
+        count = 0
+        factor = 2
+        while factor * factor <= num:
+            while (num % factor) == 0:
+                count += 1
+                num //= factor
+            factor += 1
+        if num > 1: count += 1
+        return count
+
+    return [i for i in range(start, end + 1) if prime_factors_count(i) == k]
+
+
+def puzzle(s):
+    max_val = s
+    one_primes = count_Kprimes(1, 1, max_val)
+    three_primes = count_Kprimes(3, 1, max_val)
+    seven_primes = count_Kprimes(7, 1, max_val)
+
+    count = 0
+    for a in one_primes:
+        for b in three_primes:
+            c = s - a - b
+            if c in seven_primes: count += 1
+
+    return count
+
+# Greed is Good
+def score(dice):
+    counts = [0] * 7
+    for die in dice: counts[die] += 1
+
+    total_score = 0
+    for value in range(1, 7):
+        if counts[value] >= 3:
+            if value == 1:
+                total_score += 1000
+            else:
+                total_score += value * 100
+            counts[value] -= 3
+
+    total_score += counts[1] * 100
+    total_score += counts[5] * 50
+
+    return total_score

@@ -364,3 +364,108 @@ def flatten_and_sort(array):
 # Form The Minimum
 def min_value(digits):
     return int("".join(sorted([str(i) for i in set(digits)])))
+
+# Sum of Minimums!
+def sum_of_minimums(numbers):
+    return sum(min(i) for i in numbers)
+
+# Factorial
+def factorial(n):
+    res = 1
+    for i in range(2, n+1): res *= i
+    return res
+
+# Power of two
+def power_of_two(x):
+    res = [1]
+    pow = 1
+    while res[-1] < x:
+        res.append(2 ** pow)
+        pow += 1
+
+    return x in res
+
+# Row Weights
+def row_weights(array):
+    one = sum([array[i] for i in range(len(array)) if i%2==0])
+    return (one, sum(array)-one)
+
+# Sum of Cubes
+def sum_cubes(n):
+    return sum([i**3 for i in range(1,n+1)])
+
+# Remove duplicate words
+def remove_duplicate_words(s):
+    s, res = s.split(" "), []
+
+    for i in s:
+        if i not in res: res.append(i)
+
+    return " ".join(res)
+
+# Greet Me
+def greet(name):
+    return f"Hello {name.capitalize()}!"
+
+# Sum of numbers from 0 to N
+def show_sequence(n):
+    if n >= 0: return "+".join(map(str, list(range(n+1)))) + " = " + str(sum(range(n+1))) if n > 0 else "0=0"
+    return f"{n}<0"
+
+# Sorted? yes? no? how?
+def is_sorted_and_how(arr):
+    if arr == sorted(arr): return "yes, ascending"
+    elif arr == sorted(arr, reverse = True): return "yes, descending"
+    return "no"
+
+# Even numbers in an array
+def even_numbers(arr,n):
+    return [i for i in arr if i%2 == 0][-n:]
+
+# Build a square
+def generate_shape(n):
+    return "\n".join(["+"*n for _ in range(n)])
+
+# Largest pair sum in array
+def largest_pair_sum(numbers):
+    return sorted(numbers)[-1] + sorted(numbers)[-2]
+
+# Fizz Buzz
+def fizzbuzz(n):
+    res = []
+    for i in range(1, n+1):
+        if i%3 == 0 and i%5 == 0: res.append("FizzBuzz")
+        elif i%3 == 0: res.append("Fizz")
+        elif i%5 == 0: res.append("Buzz")
+        else: res.append(i)
+    return res
+
+# Find the vowels
+def vowel_indices(word):
+	return [i+1 for i in range(len(word)) if word[i].lower() in "aeiouy"]
+
+# Greatest common divisor
+def mygcd(x, y):
+    while y:
+        x, y = y, x % y
+
+    return x
+
+# Maximum Product
+def adjacent_element_product(array):
+    max = array[0] * array[1]
+    if len(array) == 2: return max
+
+    for i in range(2, len(array)):
+        new = array[i] * array[i - 1]
+        if new > max: max = new
+
+    return max
+
+# Digits explosion
+def explode(s):
+    return "".join([i*int(i) for i in s])
+
+# Odd-Even String Sort
+def sort_my_string(s):
+    return "".join([s[i] for i in range(len(s)) if i%2 == 0]) + " " + "".join([s[i] for i in range(len(s)) if i%2 != 0])

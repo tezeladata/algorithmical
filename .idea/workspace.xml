@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81ff5929-9a76-4149-823b-7e58e2cf5e2a" name="Changes" comment="commit">
-      <change beforePath="$PROJECT_DIR$/Second account/Codewars/4kyu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Second account/Codewars/4kyu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Second account/Codewars/5kyu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Second account/Codewars/5kyu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Second account/Codewars/7kyu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Second account/Codewars/7kyu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +73,7 @@
       <workItem from="1725042490961" duration="6000" />
       <workItem from="1725044014317" duration="604000" />
       <workItem from="1725214348118" duration="60000" />
-      <workItem from="1725214444753" duration="1022000" />
+      <workItem from="1725214444753" duration="3877000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <option name="closed" value="true" />
@@ -91,7 +91,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725041817569</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="commit">
+      <option name="closed" value="true" />
+      <created>1725215947433</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1725215947433</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

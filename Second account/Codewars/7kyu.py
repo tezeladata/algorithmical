@@ -662,5 +662,3 @@ def circle_area(r):
 # Find Count of Most Frequent Item in an Array
 def most_frequent_item_count(collection):
     return collection.count(sorted(collection, key=lambda x: collection.count(x))[-1]) if collection else 0
-
-#

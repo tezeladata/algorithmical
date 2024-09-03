@@ -469,3 +469,198 @@ def explode(s):
 # Odd-Even String Sort
 def sort_my_string(s):
     return "".join([s[i] for i in range(len(s)) if i%2 == 0]) + " " + "".join([s[i] for i in range(len(s)) if i%2 != 0])
+
+
+# Sort the Gift Code
+def sort_gift_code(code):
+    return "".join(sorted(code))
+
+
+# Alphabet war
+def alphabet_war(fight):
+    left = "".join([i for i in fight if i in "wbps"]).replace("w", "4").replace("p", "3").replace("b", "2").replace("s",
+                                                                                                                    "1")
+    right = "".join([i for i in fight if i in "mqdz"]).replace("m", "4").replace("q", "3").replace("d", "2").replace(
+        "z", "1")
+    left, right = sum(int(i) for i in left), sum(int(i) for i in right)
+
+    if left > right:
+        return "Left side wins!"
+    elif right > left:
+        return "Right side wins!"
+    return "Let's fight again!"
+
+
+# Simple beads count
+def count_red_beads(n):
+    return (n - 1) * 2
+
+
+# Filter the number
+def filter_string(st):
+    return int("".join([i for i in st if i.isdigit()]))
+
+
+# Sum of Triangular Numbers
+def sum_triangular_numbers(n):
+    if n <= 0: return 0
+
+    total_sum = 0
+    for i in range(1, n + 1):
+        triangular_number = i * (i + 1) // 2
+        total_sum += triangular_number
+
+    return total_sum
+
+
+# Minimize Sum Of Array (Array Series #1)
+def min_sum(arr):
+    sorted_arr = sorted(arr)
+    sum_result = 0
+    for i in range(len(arr) // 2):
+        sum_result += sorted_arr[i] * sorted_arr[-1 - i]
+    return sum_result
+
+
+# Maximum Triplet Sum (Array Series #7)
+def max_tri_sum(numbers):
+    return sum(sorted(set(numbers))[-3:])
+
+
+# Sort arrays - 1
+def sortme(names):
+    return sorted(names)
+
+
+# Most digits
+def find_longest(numbers):
+    return max(numbers, key=lambda x: len(str(x)))
+
+
+# Divide and Conquer
+def div_con(x):
+    return sum([i for i in x if type(i) == int]) - sum([int(i) for i in x if type(i) == str])
+
+
+# Convert an array of strings to array of numbers
+def to_float_array(arr):
+    return [int(i) if "." not in i else float(i) for i in arr]
+
+
+# Ordered Count of Characters
+def ordered_count(inp):
+    result = []
+    seen = set()
+
+    for char in inp:
+        if char not in seen:
+            result.append((char, inp.count(char)))
+            seen.add(char)
+
+    return result
+
+
+# Simple remove duplicates
+def solve(arr):
+    seen = set()
+    result = []
+
+    for i in reversed(arr):
+        if i not in seen:
+            seen.add(i)
+            result.append(i)
+
+    return list(reversed(result))
+
+# Smallest value of an array
+def find_smallest(numbers, to_return):
+    return min(numbers) if to_return == "value" else numbers.index(min(numbers))
+
+# Over The Road
+def over_the_road(address, n):
+    return (2 * n + 1) - address
+
+# Perimeter sequence
+def perimeter_sequence(a, n):
+    return 4*a*n
+
+# 16+18=214
+def add(num1, num2):
+    if len(str(num2)) > len(str(num1)): num1, num2 = num2, num1
+
+    res = ''
+    num1, num2 = str(num1)[::-1], str(num2)[::-1]
+
+    for i in range(len(num1)):
+        if i < len(num2):
+            res = str(int(num1[i]) + int(num2[i])) + res
+        else:
+            res = num1[i] + res
+
+    return int(res)
+
+# Sum of array singles
+def repeats(arr):
+    return sum([i for i in arr if arr.count(i)==1])
+
+# Halving Sum
+def halving_sum(n):
+    res = n
+    while n >= 1:
+        n //= 2
+        res += n
+    return res
+
+# Palindrome chain length
+def palindrome_chain_length(n):
+    n = str(n)
+    step = 0
+
+    while n != n[::-1]:
+        step += 1
+        n = str(int(n) + int(n[::-1]))
+
+    return step
+
+# Largest Square Inside A Circle
+def area_largest_square(r):
+    return r**2*2
+
+# Reverse a Number
+def reverse_number(n):
+    return int(f"-{str(n)[1:][::-1]}") if n < 0 else int(str(n)[::-1])
+
+# Sum even numbers
+def sum_even_numbers(seq):
+    return sum([i for i in seq if i%2 == 0])
+
+# Digitize
+def digitize(n):
+    return [int(i) for i in [x for x in str(n)]]
+
+# max diff - easy
+def max_diff(lst):
+    return max(lst) - min(lst) if lst else 0
+
+# Number Of Occurrences
+def number_of_occurrences(element, sample):
+    return sample.count(element)
+
+# Find the nth Digit of a Number
+def find_digit(num, nth):
+    if nth <= 0: return -1
+
+    if nth <= len(str(num)): return int(str(num)[-nth])
+    return 0
+
+# Area of a Circle
+def circle_area(r):
+    if r <= 0: raise ValueError
+
+    return 3.14 * r * r
+
+# Find Count of Most Frequent Item in an Array
+def most_frequent_item_count(collection):
+    return collection.count(sorted(collection, key=lambda x: collection.count(x))[-1]) if collection else 0
+
+#

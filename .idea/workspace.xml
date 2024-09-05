@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="81ff5929-9a76-4149-823b-7e58e2cf5e2a" name="Changes" comment="commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Second account/Codewars/4kyu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Second account/Codewars/4kyu.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Second account/Codewars/7kyu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Second account/Codewars/7kyu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -75,7 +74,8 @@
       <workItem from="1725044014317" duration="604000" />
       <workItem from="1725214348118" duration="60000" />
       <workItem from="1725214444753" duration="4206000" />
-      <workItem from="1725390467050" duration="1592000" />
+      <workItem from="1725390467050" duration="1990000" />
+      <workItem from="1725447605998" duration="1370000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <option name="closed" value="true" />
@@ -109,7 +109,23 @@
       <option name="project" value="LOCAL" />
       <updated>1725218671518</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="commit">
+      <option name="closed" value="true" />
+      <created>1725392454691</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1725392454691</updated>
+    </task>
+    <task id="LOCAL-00006" summary="commit">
+      <option name="closed" value="true" />
+      <created>1725392466432</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1725392466432</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="81ff5929-9a76-4149-823b-7e58e2cf5e2a" name="Changes" comment="commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Second account/Codewars/7kyu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Second account/Codewars/7kyu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Second account/Codewars/6kyu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Second account/Codewars/6kyu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +77,7 @@
       <workItem from="1725390467050" duration="1990000" />
       <workItem from="1725447605998" duration="1370000" />
       <workItem from="1725563166105" duration="14000" />
-      <workItem from="1725697985510" duration="3807000" />
+      <workItem from="1725697985510" duration="5404000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <option name="closed" value="true" />
@@ -135,7 +135,23 @@
       <option name="project" value="LOCAL" />
       <updated>1725563174368</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="commit">
+      <option name="closed" value="true" />
+      <created>1725701926646</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1725701926646</updated>
+    </task>
+    <task id="LOCAL-00009" summary="commit">
+      <option name="closed" value="true" />
+      <created>1725701935465</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1725701935465</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -2666,4 +2666,63 @@ def reverse(seq):
 def encrypt(text, rule):
     return "".join([chr((ord(i) + rule) % 256) for i in text])
 
-# 
+# Color Choice
+import math
+
+def binomial_coefficient(n, x):
+    if x > n: return 0
+    return math.comb(n, x)
+
+def checkchoose(m, n):
+    if m == 1: return 0
+    for x in range(1, n + 1):
+        if binomial_coefficient(n, x) == m: return x
+    return -1
+
+# Hanoi record
+def hanoi(disks):
+    return 2**disks - 1
+
+# first character that repeats
+def first_dup(s):
+    seen = []
+
+    for i in s:
+        if i not in seen:
+            seen.append(i)
+        else:
+            ind = seen.index(i)
+            seen[ind] = seen[ind] + i
+
+    for i in seen:
+        if len(i) > 1: return i[0]
+
+# ASCII hex converter
+class Converter:
+    @staticmethod
+    def to_ascii(h):
+        ascii_string = ""
+        for i in range(0, len(h), 2):
+            hex_pair = h[i:i + 2]
+            ascii_char = chr(int(hex_pair, 16))
+            ascii_string += ascii_char
+
+        return ascii_string
+
+    @staticmethod
+    def to_hex(s):
+        hex_string = ""
+        for char in s:
+            hex_pair = format(ord(char), '02x')
+            hex_string += hex_pair
+
+        return hex_string
+
+# N smallest elements in original order
+def first_n_smallest(array, n):
+    result = []
+    arr_sorted = sorted(array)[:n]
+    for item in array:
+        if item in arr_sorted:
+            result.append(arr_sorted.pop(arr_sorted.index(item)))
+    return result

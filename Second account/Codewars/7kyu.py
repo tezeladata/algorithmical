@@ -1039,5 +1039,3 @@ def contain_all_rots(strng, arr):
 # Debug Sum of Digits of a Number
 def get_sum_of_digits(num):
     return sum([int(i) for i in str(num)])
-
-#

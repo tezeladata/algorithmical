@@ -865,4 +865,179 @@ def switcheroo(s):
             case _: res += i
     return res
 
-# 
+# Boiled Eggs
+import math
+def cooking_time(eggs):
+    return math.ceil(eggs / 8)*5
+
+# Alphabet symmetry
+def solve(strings: list[str]) -> list[int]:
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    res = []
+
+    for word in strings:
+        count = 0
+        for i, char in enumerate(word.lower()):
+            if i == alphabet.index(char): count += 1
+        res.append(count)
+
+    return res
+
+# Speed Control
+import math
+
+def gps(s, x):
+    if len(x) <= 1:
+        return 0
+
+    speeds = [(3600 * (x[i+1] - x[i])) / s for i in range(len(x) - 1)]
+    return math.floor(max(speeds))
+
+# Unpacking Arguments
+def spread(func, args):
+    return func(*args)
+
+# Simple Fun #74: Growing Plant
+def growing_plant(up_speed, down_speed, desired_height):
+    height = 0
+    days = 0
+
+    while True:
+        days += 1
+        height += up_speed
+
+        if height >= desired_height:
+            return days
+
+        height -= down_speed
+
+# Flatten
+def flatten(array):
+    res = []
+
+    for i in array:
+        if isinstance(i, list):
+            res.extend(i)
+        else:
+            res.append(i)
+
+    return res
+
+# Averages of numbers
+def averages(arr):
+    return [(arr[i]+arr[i+1])/2 for i in range(len(arr)-1)] if arr else []
+
+# Char Code Calculation
+def calc(x):
+    return str(int("".join([str(ord(i)) for i in x])) - int("".join([str(ord(i)) for i in x]).replace("7", "1"))).replace("0", "").count("6")*6
+
+# Vowel one
+def vowel_one(s):
+    return "".join(["0" if i.lower() not in "aeiou" else "1" for i in s])
+
+# Coloured Triangles
+def triangle(row):
+    def rep(pair):
+        rules = {
+            "GG": "G", "BB": "B", "RR": "R",
+            "BG": "R", "GB": "R", "RG": "B",
+            "GR": "B", "RB": "G", "BR": "G"
+        }
+        return rules[pair]
+
+    while len(row) > 1:
+        row = "".join([rep(row[i:i + 2]) for i in range(len(row) - 1)])
+
+    return row
+
+# Rotate for a Max
+def max_rot(n):
+    n_str, rotations = str(n), [n]
+
+    for i in range(len(n_str) - 1):
+        n_str = n_str[:i] + n_str[i+1:] + n_str[i]
+        rotations.append(int(n_str))
+
+    return max(rotations)
+
+# Tidy Number (Special Numbers Series #9)
+def tidyNumber(n):
+    return str(n) == "".join(sorted([i for i in str(n)]))
+
+# Product Of Maximums Of Array (Array Series #2)
+def max_product(lst, k):
+    sorted_lst = sorted(lst, reverse=True)
+
+    product = 1
+    for num in sorted_lst[:k]: product *= num
+
+    return product
+
+# Remove All The Marked Elements of a List
+class List:
+    def remove_(self, integer_list, values_list):
+        return [i for i in integer_list if i not in values_list]
+
+# esreveR
+def reverse(lst):
+    res = list()
+    index = len(lst) - 1
+
+    while index >= 0:
+        res.append(lst[index])
+        index -= 1
+
+    return res
+
+# Sum of Odd Cubed Numbers
+def cube_odd(arr):
+    for i in arr:
+        if type(i)!= int: return None
+    return sum([i**3 for i in arr if i**3 %2 == 1])
+
+# Basic Calculator
+def calculate(num1, operation, num2):
+    match operation:
+        case "+": return num1 + num2
+        case "-": return num1 - num2
+        case "*": return num1 * num2
+        case "/": return num1 / num2 if num2!=0 else None
+        case _: return None
+
+# Sort Out The Men From Boys
+def men_from_boys(arr):
+    return list(sorted([i for i in set(arr) if i%2 == 0])) + list(sorted([i for i in set(arr) if i%2 == 1], reverse=True))
+
+# How many arguments
+def args_count(*args, **kwargs):
+    return len(args) + len(kwargs)
+
+# How many are smaller than me?
+def smaller(arr):
+    n = len(arr)
+    res = [0] * n
+
+    for i in range(n):
+        count = 0
+        for j in range(i + 1, n):
+            if arr[j] < arr[i]:
+                count += 1
+        res[i] = count
+
+    return res
+
+# All Inclusive?
+def contain_all_rots(strng, arr):
+    def generate_rotations(s):
+        return [s[i:] + s[:i] for i in range(len(s))]
+
+    if strng == "": return True
+
+    rotations = generate_rotations(strng)
+    return all(rot in arr for rot in rotations)
+
+# Debug Sum of Digits of a Number
+def get_sum_of_digits(num):
+    return sum([int(i) for i in str(num)])
+
+#

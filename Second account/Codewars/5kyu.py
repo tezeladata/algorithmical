@@ -717,3 +717,129 @@ def number2words(n):
     res = number_to_words(n).split(" ")
     res = [i[1:] if i[0] == "-" else i for i in res]
     return " ".join(res)
+
+# Josephus Survivor
+def josephus_survivor(n, k):
+    people = list(range(1, n + 1))
+    index = 0
+
+    while len(people) > 1:
+        index = (index + k - 1) % len(people)
+        people.pop(index)
+
+    return people[0]
+
+# Buddy Pairs
+def buddy(start, limit):
+    for n in range(start, limit + 1):
+        sum_n = sum_proper_divisors(n)
+        if sum_n > n + 1:
+            m = sum_n - 1
+            sum_m = sum_proper_divisors(m)
+            if sum_m == n + 1 and m > n:
+                return [n, m]
+    return "Nothing"
+
+
+def sum_proper_divisors(num):
+    divisor_sum = 1
+    sqrt_num = int(num ** 0.5)
+    for i in range(2, sqrt_num + 1):
+        if num % i == 0:
+            divisor_sum += i
+            if i != num // i:
+                divisor_sum += num // i
+
+    if sqrt_num * sqrt_num == num:
+        divisor_sum -= sqrt_num
+    return divisor_sum
+
+# ISBN-10 Validation
+def valid_ISBN10(isbn):
+    if len(isbn) != 10 or (not isbn[-1].isdigit() and isbn[-1] != "X"): return False
+    for i in isbn[:-1]:
+        if not i.isdigit(): return False
+
+    total = 0
+
+    for i in range(9): total += (i + 1) * int(isbn[i])
+
+    last_char = isbn[-1]
+    if last_char == 'X': total += 10 * 10
+    else: total += 10 * int(last_char)
+
+    return total % 11 == 0
+
+# Return substring instance count - 2
+def search_substr(full_text, search_text, allow_overlap=True):
+    if not search_text:
+        return 0
+
+    count = 0
+    start = 0
+
+    while True:
+        start = full_text.find(search_text, start)
+
+        if start == -1:
+            break
+
+        count += 1
+
+        if not allow_overlap:
+            start += len(search_text)
+        else:
+            start += 1
+
+    return count
+
+# Consecutive k-Primes
+def consec_kprimes(k, arr):
+    return len(
+        [[arr[i], arr[i + 1]] for i in range(len(arr) - 1) if prime_factor(arr[i]) == prime_factor(arr[i + 1]) == k])
+
+
+def prime_factor(num):
+    original = num
+    if num == 1:
+        return [1]
+
+    n = 2
+    factors = []
+    while n ** 2 <= num:
+        if num % n == 0:
+            factors.append(n)
+            num //= n
+        else:
+            n += 1
+
+    if num > 1:
+        factors.append(num)
+
+    return len(factors)
+
+# Largest Difference in Increasing Indexes
+def largest_difference(data):
+    diff = len(data) - 1
+
+    while diff > 0:
+        for i in range(len(data) - diff):
+            if data[i] <= data[i + diff]:
+                return diff
+        diff -= 1
+
+    return 0
+
+# Sum of (Two) Squares
+import math
+
+def all_squared_pairs(n):
+    result = []
+    limit = int(math.sqrt(n))
+    for a in range(limit + 1):
+        b_squared = n - a * a
+        if b_squared >= 0:
+            b = int(math.sqrt(b_squared))
+            if b * b == b_squared and a <= b:
+                result.append([a, b])
+    return result

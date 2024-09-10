@@ -3170,3 +3170,32 @@ def diagonal(n, p):
         sum_value += prev
 
     return sum_value
+
+# Reducing by steps
+def oper_array(fct, arr, init):
+    def gcdi(x, y):
+        x, y = abs(x), abs(y)
+        while y:
+            x, y = y, x % y
+        return x
+
+    def lcmu(a, b):
+        a, b = abs(a), abs(b)
+        return (a * b) // gcdi(a, b)
+
+    def som(a, b):
+        return a + b
+
+    def maxi(a, b):
+        return max(a, b)
+
+    def mini(a, b):
+        return min(a, b)
+
+    result = [init]
+    for i in arr:
+        init = fct(init, i)
+        result.append(init)
+    return result[1:]
+
+#

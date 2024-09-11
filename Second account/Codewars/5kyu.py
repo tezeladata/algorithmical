@@ -843,3 +843,128 @@ def all_squared_pairs(n):
             if b * b == b_squared and a <= b:
                 result.append([a, b])
     return result
+
+# Decimal to Factorial and Back
+def dec_2_fact_string(nb):
+    result, i = [], 1
+
+    while nb > 0:
+        result.append(nb % i)
+        nb //= i
+        i += 1
+
+    result = result[::-1]
+    return ''.join(str(x) if x < 10 else chr(ord('A') + x - 10) for x in result)
+
+
+def fact_string_2_dec(string):
+    nb, length = 0, len(string)
+
+    for i in range(length):
+        char = string[i]
+        digit = int(char) if char.isdigit() else ord(char) - ord('A') + 10
+        nb += digit * factorial(length - i - 1)
+
+    return nb
+
+
+def factorial(n):
+    if n == 0 or n == 1: return 1
+
+    result = 1
+    for i in range(2, n + 1): result *= i
+    return result
+
+# Scramblies
+def scramble(s1, s2):
+    char_count_s1 = {}
+    for char in s1:
+        char_count_s1[char] = char_count_s1.get(char, 0) + 1
+
+    for char in s2:
+        if char_count_s1.get(char, 0) <= 0:
+            return False
+        char_count_s1[char] -= 1
+
+    return True
+
+# Guess The Gifts!
+def guess_gifts(wishlist, presents):
+    res = set()
+
+    for present in presents:
+        for item in wishlist:
+            if (present["size"] == item["size"] and present["clatters"] == item["clatters"] and present["weight"] ==
+                    item["weight"]): res.add(item["name"])
+
+    return list(res)
+
+# Find the unique string
+def find_uniq(arr):
+    major_string = "".join(arr)
+    dictionary = {}
+
+    for character in major_string.lower():
+        if character not in dictionary:
+            dictionary[character] = 1
+        elif character in dictionary:
+            dictionary[character] += 1
+
+    minimum = min(dictionary, key=dictionary.get)
+    for word in arr:
+        if minimum in word.lower(): return word
+
+# Convert all the cases!
+def change_case(identifier, targetCase):
+    if identifier == "": return ""
+
+    if '-' in identifier and identifier.islower():
+        parts = identifier.split('-')
+    elif '_' in identifier and identifier.islower():
+        parts = identifier.split('_')
+
+    # Camel
+    elif '-' not in identifier and '_' not in identifier:
+        parts = []
+        start = 0
+        for i in range(1, len(identifier)):
+            if identifier[i].isupper():
+                parts.append(identifier[start:i])
+                start = i
+        parts.append(identifier[start:])
+    else:
+        return None
+
+    if any(not part.isalpha() for part in parts): return None
+
+    if targetCase == "snake":
+        return "_".join(parts).lower()
+    elif targetCase == "kebab":
+        return "-".join(parts).lower()
+    elif targetCase == "camel":
+        return parts[0] + "".join(part.title() for part in parts[1:])
+
+# By the Power Set of Castle Grayskull
+def power(a):
+    def recurse(current, index):
+        if index == len(a):
+            result.append(current)
+            return
+        recurse(current, index + 1)
+        recurse(current + [a[index]], index + 1)
+
+    result = []
+    recurse([], 0)
+    return result
+
+# Don't Drink the Water
+def separate_liquids(glass):
+    if not glass or glass == []:
+        return []
+
+    flat = [liquid for row in glass for liquid in row]
+
+    count_O, count_A, count_W, count_H = flat.count('O'), flat.count('A'), flat.count('W'), flat.count('H')
+    sorted_liquids = ['O'] * count_O + ['A'] * count_A + ['W'] * count_W + ['H'] * count_H
+
+    return [sorted_liquids[i:i + len(glass[0])] for i in range(0, len(sorted_liquids), len(glass[0]))]
